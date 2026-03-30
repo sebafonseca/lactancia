@@ -1,0 +1,32 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Flask / DB
+*.db
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.eslintcache
+
+# Env files
+.env
+.env.*
+
+# Logs
+*.log

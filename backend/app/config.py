@@ -1,0 +1,20 @@
+import os
+
+
+class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "dev-jwt-secret")
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL", "sqlite:///lactancia.db"
+    )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*")
+    ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+    APP_VERSION = os.getenv("APP_VERSION", "0.1.0")
+    DEV_ADMIN_EMAIL = os.getenv("DEV_ADMIN_EMAIL")
+    ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+    MERCADOPAGO_ACCESS_TOKEN = os.getenv("MERCADOPAGO_ACCESS_TOKEN", "")
+    MERCADOPAGO_WEBHOOK_SECRET = os.getenv("MERCADOPAGO_WEBHOOK_SECRET", "")
+    RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
+    RESEND_FROM = os.getenv("RESEND_FROM", "")
+    CONTACT_TO = os.getenv("CONTACT_TO", "sebafonseca@gmail.com")

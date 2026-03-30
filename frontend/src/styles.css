@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #1f2937;
+  background: #fff8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, sans-serif;
+  background: linear-gradient(180deg, #fce9ef 0%, #fff8f0 60%, #fce9ef 100%);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
