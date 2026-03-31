@@ -69,22 +69,14 @@ export DATABASE_URL=sqlite:///lactancia.db
 
 ## Produccion (Railway)
 
-Variables recomendadas:
+La guía completa está en la raíz del monorepo: **[DEPLOYMENT.md](../DEPLOYMENT.md)**.
 
-- `DATABASE_URL` (Railway Postgres)
-- `JWT_SECRET_KEY` (secreto fuerte)
-- `SECRET_KEY` (secreto fuerte)
-- `DEV_ADMIN_EMAIL`
-- `ADMIN_EMAIL`
-- `CORS_ORIGINS` (ej: `https://tu-app.vercel.app`)
-- `ENVIRONMENT=production`
-- `APP_VERSION=1.0.0`
+Resumen:
 
-Start command (via `Procfile`):
-
-```
-gunicorn wsgi:app --bind 0.0.0.0:$PORT
-```
+- **Healthcheck público:** `GET /health`
+- **Start:** `gunicorn wsgi:app --bind 0.0.0.0:$PORT` (`Procfile` / `railway.json`)
+- **CORS:** `CORS_ORIGINS` puede listar varios orígenes **separados por coma** (URL del frontend en Vercel, con `https://`)
+- Variables: `DATABASE_URL`, `SECRET_KEY`, `JWT_SECRET_KEY`, admins, Resend (`RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO`), etc.
 
 ## Contacto por email (Resend)
 

@@ -95,6 +95,10 @@ npm run dev
 
 Frontend en `http://localhost:5173`.
 
+## Produccion (Vercel)
+
+Variables `VITE_*`, dominio del API en Railway y checklist: ver **`DEPLOYMENT.md`** en la raíz del monorepo.
+
 ## Notas
 
 - Los datos de UI estan mockeados en los componentes.

@@ -5,7 +5,7 @@
   },
   "deploy": {
     "startCommand": "gunicorn wsgi:app --bind 0.0.0.0:$PORT",
-    "healthcheckPath": "/dev-admin/health",
+    "healthcheckPath": "/health",
     "healthcheckTimeout": 100
   }
 }

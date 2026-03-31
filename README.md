@@ -66,6 +66,10 @@ npm install
 npm run dev
 ```
 
+## Producción (Vercel + Railway)
+
+Guía paso a paso, variables de entorno y checklist: **[DEPLOYMENT.md](./DEPLOYMENT.md)** (frontend en Vercel, API en Railway, Postgres en Railway).
+
 ## Notas
 
 - Los endpoints de MercadoPago y OAuth son placeholders para integrar tokens reales.

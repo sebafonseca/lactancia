@@ -33,10 +33,10 @@ export default function ContactPage() {
   const [status, setStatus] = useState("idle");
   const [whatsappLink, setWhatsappLink] = useState("");
 
-  const apiUrl = useMemo(
-    () => import.meta.env.VITE_API_URL || "http://localhost:5000",
-    []
-  );
+  const apiUrl = useMemo(() => {
+    const raw = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    return String(raw).replace(/\/+$/, "");
+  }, []);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;

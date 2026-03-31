@@ -35,6 +35,11 @@ def create_app():
     app.register_blueprint(devadmin_bp, url_prefix="/dev-admin")
     app.register_blueprint(contact_bp, url_prefix="/contact")
 
+    @app.get("/health")
+    def public_health():
+        """Sin auth — usado por Railway u otros healthchecks."""
+        return {"status": "ok"}, 200
+
     @app.cli.command("seed-admins")
     def seed_admins_command():
         seed_admins(app.config.get("DEV_ADMIN_EMAIL"), app.config.get("ADMIN_EMAIL"))
