@@ -2,10 +2,33 @@
 
 Arquitectura recomendada para producción: sitio estático/React en **Vercel**, API Flask en **Railway** (con Postgres). Las reservas van por **Cal.com**; el backend sigue sirviendo el **formulario de contacto** (`POST /contact` con Resend) y el resto de módulos si los usás más adelante.
 
-## Orden de trabajo
+## Resumen del stack
 
-1. **Railway** — subir el backend y obtener la URL pública (`https://…up.railway.app` o dominio propio).
-2. **Vercel** — configurar `VITE_API_URL` apuntando a esa URL y desplegar el frontend.
+| Parte | Dónde | Cómo se despliega |
+|-------|--------|-------------------|
+| **Frontend** | [Vercel](https://vercel.com) | Root **`frontend`**, build `npm run build`, salida `dist` (ver `frontend/vercel.json`). |
+| **API** | [Railway](https://railway.app) | Root **`backend`**, imagen **Docker** (`backend/Dockerfile` + `railway.json`). |
+| **Base de datos** | Railway | Plugin **PostgreSQL**; `DATABASE_URL` la inyecta Railway. |
+| **Reservas** | [Cal.com](https://cal.com) | Enlaces públicos en `VITE_CAL_COM_*` en Vercel (opcional; si faltan, el sitio ofrece WhatsApp). |
+| **Contacto por mail** | Resend | Variables en Railway: `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO`. |
+
+## Orden de trabajo (resumido)
+
+1. **Railway:** proyecto → servicio con **Root Directory** `backend` → plugin Postgres → variables de entorno (ver tabla más abajo y `backend/env.sample`).
+2. **Primera vez:** shell del servicio u one-off con la misma imagen y env:
+
+   ```bash
+   export FLASK_APP=wsgi:app
+   flask db upgrade
+   flask seed-admins
+   ```
+
+3. Anotar la **URL pública HTTPS** del backend (**sin** `/` final).
+4. **Vercel:** proyecto con Root **`frontend`** → `VITE_API_URL` = esa URL; opcional `VITE_CAL_COM_PRESENCIAL_URL` / `VITE_CAL_COM_ONLINE_URL` → deploy o **Redeploy** si cambiás variables.
+
+**Recordatorios:** en Railway, `CORS_ORIGINS` debe ser el origen exacto del sitio en Vercel (varias URLs: separadas por coma). Tras cambiar `VITE_*` en Vercel, hace falta redeploy.
+
+**Smoke test:** `GET https://tu-backend/health` → `{"status":"ok"}`.
 
 ---
 

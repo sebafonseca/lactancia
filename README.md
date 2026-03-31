@@ -66,9 +66,9 @@ npm install
 npm run dev
 ```
 
-## Producción (Vercel + Railway)
+## Producción
 
-Guía paso a paso, variables de entorno y checklist: **[DEPLOYMENT.md](./DEPLOYMENT.md)** (frontend en Vercel, API en Railway, Postgres en Railway).
+Frontend en **Vercel**, API en **Railway** (Docker + Postgres), reservas vía **Cal.com**, contacto con **Resend**. Pasos, variables y checklist: **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
 
 ## Notas
 
