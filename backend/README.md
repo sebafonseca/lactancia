@@ -73,8 +73,9 @@ La guía completa está en la raíz del monorepo: **[DEPLOYMENT.md](../DEPLOYMEN
 
 Resumen:
 
+- **Docker:** `backend/Dockerfile` + `railway.json` con `DOCKERFILE` (Gunicorn en el `CMD`; Railway inyecta `PORT`).
 - **Healthcheck público:** `GET /health`
-- **Start:** `gunicorn wsgi:app --bind 0.0.0.0:$PORT` (`Procfile` / `railway.json`)
+- **Procfile:** alternativa sin Docker (p. ej. Heroku); en Railway con Dockerfile manda el `CMD` de la imagen.
 - **CORS:** `CORS_ORIGINS` puede listar varios orígenes **separados por coma** (URL del frontend en Vercel, con `https://`)
 - Variables: `DATABASE_URL`, `SECRET_KEY`, `JWT_SECRET_KEY`, admins, Resend (`RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO`), etc.
 

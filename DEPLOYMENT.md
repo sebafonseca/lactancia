@@ -9,32 +9,41 @@ Arquitectura recomendada para producción: sitio estático/React en **Vercel**, 
 
 ---
 
-## 1. Backend en Railway
+## 1. Backend en Railway (Docker)
 
 ### Proyecto
 
 1. [Railway](https://railway.app) → **New project** → **Deploy from GitHub** (o el proveedor que uses).
-2. Elige el repositorio y agrega un servicio cuyo **Root Directory** sea **`backend`**.
-3. Railway usa Nixpacks y el archivo `backend/railway.json` / `Procfile` para arrancar:
+2. Agregá un servicio con **Root Directory** = **`backend`**.
+3. El build usa **`backend/Dockerfile`**: imagen `python:3.12-slim`, dependencias desde `requirements.txt` y arranque con **Gunicorn** (el `CMD` de la imagen respeta la variable **`PORT`** que inyecta Railway).
+4. `backend/railway.json` declara **`builder`: `DOCKERFILE`** y el healthcheck **`GET /health`**.
 
-   `gunicorn wsgi:app --bind 0.0.0.0:$PORT`
+Podés comprobar la imagen en local:
 
-4. **Healthcheck** (en `railway.json`): ruta pública **`GET /health`** (sin autenticación).
+```bash
+cd backend
+docker build -t lactancia-api .
+docker run --rm -p 5000:5000 -e PORT=5000 -e DATABASE_URL=sqlite:////tmp/test.db lactancia-api
+```
 
-### Base de datos
+(En producción usá Postgres vía `DATABASE_URL`; para un smoke test local con SQLite el archivo debe ser una ruta que el contenedor pueda escribir.)
 
-- Agregá el plugin **PostgreSQL** en Railway.
-- Railway inyecta **`DATABASE_URL`** en el servicio del backend. No hace falta `sqlite` en producción.
+### Migraciones en Docker / Railway
 
-### Migraciones y seed (primera vez)
-
-En un **shell** del servicio en Railway (o un deploy one-off), **desde el directorio `backend`**, con las mismas variables de entorno:
+En la consola **Shell** del servicio en Railway (entra al contenedor en ejecución) o con un deploy temporal:
 
 ```bash
 export FLASK_APP=wsgi:app
 flask db upgrade
 flask seed-admins
 ```
+
+Si el contenedor no incluye herramientas interactivas, usá **Run command** / **one-off** en Railway apuntando a la misma imagen y las mismas variables de entorno.
+
+### Base de datos
+
+- Agregá el plugin **PostgreSQL** en Railway.
+- Railway inyecta **`DATABASE_URL`** en el servicio del backend. No hace falta `sqlite` en producción.
 
 ### Variables de entorno (Railway)
 
@@ -95,6 +104,8 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 ## 4. Referencias en el repo
 
 - `frontend/vercel.json` — build SPA.
-- `backend/railway.json` — start command y healthcheck.
-- `backend/Procfile` — alternativa para procesos web.
+- `backend/Dockerfile` — imagen de producción (Gunicorn).
+- `backend/.dockerignore` — reduce contexto de build.
+- `backend/railway.json` — builder Docker + healthcheck.
+- `backend/Procfile` — útil para otros hosts (p. ej. Heroku); Railway con Docker usa el `CMD` del Dockerfile.
 - `backend/env.sample` — plantilla de variables.
