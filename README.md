@@ -20,9 +20,8 @@ backend/
   run.py
 frontend/
   src/
-    pages/          # landing, dashboard, admin, dev-admin
-    router/         # guards por rol
-    services/       # auth demo
+    pages/          # landing, contacto
+    router/         # rutas publicas
   docker-compose.yml
 ```
 
@@ -40,6 +39,7 @@ docker compose up --build
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:5000
+- Para **Cal.com** en Docker: creá `frontend/.env` (podés partir de `frontend/env.sample`) con `VITE_CAL_COM_PRESENCIAL_URL` y `VITE_CAL_COM_ONLINE_URL`. El `docker-compose` carga ese archivo en el contenedor; después de cambiarlo, **`docker compose up --build`** de nuevo (o reiniciá solo el servicio `frontend`) para que Vite lea las variables.
 
 ## Backend local (sin Docker)
 
@@ -65,13 +65,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-## Roles demo
-
-El login actual es un placeholder. En `/login` podes entrar como:
-- Clienta -> `/dashboard`
-- Asesora -> `/admin`
-- Dev Admin -> `/dev-admin`
 
 ## Notas
 

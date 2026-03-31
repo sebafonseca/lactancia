@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="text-sm text-violetDeep/80">
           <p className="mb-2 font-semibold text-violetDeep">Contacto</p>
           <p>WhatsApp directo</p>
-          <p>Instagram y Facebook</p>
+          <p>Instagram @lactancia_uy</p>
         </div>
       </div>
     </footer>

@@ -62,14 +62,22 @@ volta install node@20
 
 ## Configuracion
 
-Variable opcional:
+Copia `env.sample` a `.env` y ajusta.
 
-- `VITE_API_URL` (por defecto `http://localhost:5000`)
+Variables opcionales:
 
-Si queres, podes exportarla antes de iniciar:
+- `VITE_API_URL` — backend (por defecto `http://localhost:5000`)
+- `VITE_CAL_COM_PRESENCIAL_URL` — event type presencial en Cal.com
+- `VITE_CAL_COM_ONLINE_URL` — event type online
+
+Sin las URLs de Cal.com, “Reservar” abre **WhatsApp** con un mensaje acorde (no el formulario). Creá `frontend/.env` y **reiniciá** el servidor de Vite tras cambiar variables.
+
+Ejemplo:
 
 ```
 export VITE_API_URL=http://localhost:5000
+export VITE_CAL_COM_PRESENCIAL_URL=https://cal.com/tu-usuario/consulta-presencial
+export VITE_CAL_COM_ONLINE_URL=https://cal.com/tu-usuario/consulta-online
 ```
 
 ## Instalar dependencias
@@ -89,5 +97,4 @@ Frontend en `http://localhost:5173`.
 
 ## Notas
 
-- El login actual es un placeholder en `/login`.
 - Los datos de UI estan mockeados en los componentes.

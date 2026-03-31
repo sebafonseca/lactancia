@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getBookingHrefOrWhatsapp } from "../config/booking.js";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
-
-const services = [
-  {
-    title: "Consulta presencial",
-    description: "Visita en tu hogar para acompanarte, evaluar la lactancia y ayudarte con una guia personalizada para tu situacion.",
-    icon: "heart"
-  },
-  {
-    title: "Consulta online",
-    description: "Sesion por videollamada con plan de accion y seguimiento.",
-    icon: "video"
-  }
-];
+import ServicesSection from "../components/ServicesSection.jsx";
 
 const steps = [
   {
@@ -93,7 +82,8 @@ const testimonials = [
 const faqs = [
   {
     question: "Cuanto dura la consulta?",
-    answer: "Online 60 minutos, presencial 90 minutos."
+    answer:
+      "Online 60 minutos, presencial 90 minutos. La consulta presencial a domicilio es solo en Melo, Cerro Largo."
   },
   {
     question: "Que incluye el seguimiento?",
@@ -159,18 +149,33 @@ function Icon({ name, className }) {
           <path d="M4 20V9M10 20V5M16 20v-8M22 20H2" stroke="currentColor" strokeWidth="1.5" />
         </svg>
       );
+    case "presentation":
+      return (
+        <svg className={`${common} ${className}`} viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="5" width="15" height="11" rx="2" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M17 9l5 3-5 3V9z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          <path d="M7 19h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    case "baby":
+      return (
+        <svg className={`${common} ${className}`} viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="9" r="3" stroke="currentColor" strokeWidth="1.5" />
+          <path
+            d="M6.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <path d="M9.5 8L8 6M14.5 8L16 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
     case "instagram":
       return (
         <svg className={`${common} ${className}`} viewBox="0 0 24 24" fill="none">
           <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="17" cy="7" r="1" fill="currentColor" />
-        </svg>
-      );
-    case "facebook":
-      return (
-        <svg className={`${common} ${className}`} viewBox="0 0 24 24" fill="none">
-          <path d="M14 8h3V5h-3a4 4 0 0 0-4 4v3H7v3h3v6h3v-6h3l1-3h-4V9a1 1 0 0 1 1-1z" fill="currentColor" />
         </svg>
       );
     case "whatsapp":
@@ -350,6 +355,7 @@ export default function LandingPage() {
   const whatsappLink = `https://wa.me/59899049093?text=${encodeURIComponent(
     whatsappMessage
   )}`;
+  const presencialBookingUrl = getBookingHrefOrWhatsapp("presencial");
 
   return (
     <div className="text-violetDeep">
@@ -365,7 +371,7 @@ export default function LandingPage() {
             transition={{ duration: 0.7 }}
             className="w-fit rounded-full bg-mint px-4 py-2 text-xs font-semibold uppercase tracking-wide text-violetDeep"
           >
-            Asesoria certificada
+            Asesoria certificada - IULAM
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
@@ -381,16 +387,22 @@ export default function LandingPage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-base text-violetDeep/80 md:text-lg"
           >
-            Soy Ana Cecilia Acosta, asesora de lactancia. Te acompaño con un plan personalizado
-            y cercano para ayudarte a vivir esta etapa con seguridad y confianza.
+            Soy Ana Cecilia Acosta, asesora de lactancia. Durante diez años acompañé a familias en
+            lactancia y maternidad en el Hospital Británico. Me formé en salud mental y lactancia en
+            el Instituto Europeo de Salud Mental Perinatal y en asesoría en lactancia en el IULAM
+            (Instituto Uruguayo de Lactancia Materna). Te ofrezco un acompañamiento personalizado y
+            cercano para que vivas esta etapa con seguridad y confianza.
           </motion.p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <motion.button
+            <motion.a
+              href={presencialBookingUrl}
+              target="_blank"
+              rel="noreferrer"
               whileHover={{ scale: 1.04, opacity: 0.9 }}
-              className="rounded-full bg-violetDeep px-6 py-3 text-sm font-semibold text-white shadow-soft"
+              className="inline-flex items-center justify-center rounded-full bg-violetDeep px-6 py-3 text-sm font-semibold text-white shadow-soft"
             >
               Reservar consulta
-            </motion.button>
+            </motion.a>
             <motion.a
               whileHover={{ scale: 1.04, opacity: 0.9 }}
               className="flex items-center justify-center gap-2 rounded-full border border-violetDeep/20 bg-white/70 px-6 py-3 text-sm font-semibold leading-none text-violetDeep shadow-soft"
@@ -403,7 +415,7 @@ export default function LandingPage() {
             </motion.a>
           </div>
           <div className="text-sm text-violetDeep/70">
-            Atención presencial y online · Plan y seguimiento
+            Presencial solo Melo, Cerro Largo · Online desde cualquier lugar · Plan y seguimiento
           </div>
         </div>
         <motion.div
@@ -426,39 +438,7 @@ export default function LandingPage() {
       <WaveSeparator />
 
       <Section id="servicios">
-        <div className="mb-6 flex items-end justify-between">
-          <div>
-            <p className="text-sm font-semibold text-violetDeep/70">Servicios</p>
-            <h2 className="text-3xl font-semibold">Te acompaño en cada etapa</h2>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            className="hidden rounded-full bg-white/70 px-5 py-2 text-sm font-semibold text-violetDeep shadow-soft md:inline-flex"
-          >
-            Ver disponibilidad
-          </motion.button>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(90,79,207,0.2)" }}
-              className="rounded-3xl bg-white/80 p-6 shadow-soft backdrop-blur"
-            >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/80 text-violetDeep">
-                <Icon name={service.icon} className="text-violetDeep" />
-              </div>
-              <h3 className="text-xl font-semibold">{service.title}</h3>
-              <p className="mt-2 text-sm text-violetDeep/80">{service.description}</p>
-              <motion.button
-                whileHover={{ scale: 1.04, opacity: 0.9 }}
-                className="mt-4 rounded-full bg-violetDeep px-4 py-2 text-xs font-semibold text-white shadow-soft"
-              >
-                Reservar ahora
-              </motion.button>
-            </motion.div>
-          ))}
-        </div>
+        <ServicesSection />
       </Section>
 
       <WaveSeparator flip />
@@ -549,26 +529,16 @@ export default function LandingPage() {
             Escribime por el canal que te quede mas practico. Te respondo siempre con calidez.
           </p>
         </div>
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3">
           <motion.a
             whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(249,221,227,0.8)" }}
             className="flex items-center justify-between rounded-3xl bg-rosePastel/70 px-6 py-5 text-sm font-semibold shadow-soft"
-            href="https://instagram.com"
+            href="https://www.instagram.com/lactancia_uy/"
             target="_blank"
             rel="noreferrer"
           >
             Instagram
             <Icon name="instagram" />
-          </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(221,235,255,0.9)" }}
-            className="flex items-center justify-between rounded-3xl bg-babyBlue/70 px-6 py-5 text-sm font-semibold shadow-soft"
-            href="https://facebook.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Facebook
-            <Icon name="facebook" />
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(218,243,234,0.9)" }}

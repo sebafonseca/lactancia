@@ -6,8 +6,9 @@
 2. Selecciona el root directory `frontend`.
 3. Build Command: `npm run build`
 4. Output Directory: `dist`
-5. Variable de entorno:
+5. Variables de entorno:
    - `VITE_API_URL` = URL publica del backend (Railway)
+   - `VITE_CAL_COM_PRESENCIAL_URL` / `VITE_CAL_COM_ONLINE_URL` = Cal.com (opcional; si faltan, reserva por WhatsApp)
 6. Deploy.
 
 El archivo `frontend/vercel.json` ya incluye el rewrite para SPA.

@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../services/auth.jsx";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
-
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
       <div className="flex items-center gap-3">
@@ -21,23 +18,6 @@ export default function Navbar() {
         <Link to="/#faq">FAQ</Link>
         <Link to="/contacto">Contacto</Link>
       </nav>
-      <div className="flex items-center gap-3">
-        {user ? (
-          <button
-            className="rounded-full bg-violetDeep px-5 py-2 text-sm font-semibold text-white shadow-soft"
-            onClick={logout}
-          >
-            Salir
-          </button>
-        ) : (
-          <Link
-            className="rounded-full bg-violetDeep px-5 py-2 text-sm font-semibold text-white shadow-soft"
-            to="/login"
-          >
-            Ingresar
-          </Link>
-        )}
-      </div>
     </header>
   );
 }

@@ -92,7 +92,7 @@ Variables necesarias:
 
 - `RESEND_API_KEY`
 - `RESEND_FROM` (dominio verificado en Resend)
-- `CONTACT_TO` (por defecto `sebafonseca@gmail.com`)
+- `CONTACT_TO` (por defecto `lactanciasuy@gmail.com`)
 
 El endpoint `POST /contact` envia el email usando `RESEND_FROM` como `from` y el email de la usuaria en `reply_to`.
 

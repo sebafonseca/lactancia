@@ -17,4 +17,4 @@ class Config:
     MERCADOPAGO_WEBHOOK_SECRET = os.getenv("MERCADOPAGO_WEBHOOK_SECRET", "")
     RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
     RESEND_FROM = os.getenv("RESEND_FROM", "")
-    CONTACT_TO = os.getenv("CONTACT_TO", "sebafonseca@gmail.com")
+    CONTACT_TO = os.getenv("CONTACT_TO", "lactanciasuy@gmail.com")
