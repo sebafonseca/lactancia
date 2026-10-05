@@ -50,7 +50,7 @@ No hay `href="#"` ni `href=""`. El 404 de `/favicon.ico` ya estaba: el proyecto 
 |---------|-----------|
 | Title | `Asesoría de lactancia en Uruguay \| Ana Cecilia Acosta`. En `/contacto`: `Contacto \| Asesoría de lactancia en Uruguay`. |
 | Meta description | Presente en el HTML inicial y actualizada en `/contacto`. |
-| Canonical | `https://lactancia.vercel.app/` y, en contacto, `https://lactancia.vercel.app/contacto`. |
+| Canonical | `https://www.lactanciasuy.com/` y, en contacto, `https://www.lactanciasuy.com/contacto`. |
 | Open Graph y Twitter | `og:title`, `og:description`, `og:url`, `og:image`, `twitter:card=summary_large_image`. La imagen es la foto de stock que ya usa el hero. |
 | H1 | Uno solo, el texto original, clases originales. |
 | H2 | Cinco, los títulos de sección que ya existían. |
@@ -59,7 +59,7 @@ No hay `href="#"` ni `href=""`. El 404 de `/favicon.ico` ya estaba: el proyecto 
 | HTML semántico | `<main>` en home y contacto. El H1 ya era `h1`. |
 | noindex / nofollow | No aparecen. El meta robots es `index, follow`. |
 | X-Robots-Tag | No se envía. |
-| Redirects | En el sitio ya publicado, HTTP responde 308 a HTTPS. `www.lactancia.vercel.app` no resuelve. Tras este deploy, `/contacto/` debe ir a `/contacto`. |
+| Redirects | `http://www.lactanciasuy.com` responde 308 a HTTPS. `https://lactanciasuy.com` responde 307 a `https://www.lactanciasuy.com/`. Tras este deploy, el host `lactancia.vercel.app` redirige a ese dominio y `/contacto/` va a `/contacto`. |
 | 404 | En producción, una ruta distinta de `/` y `/contacto` ya no devuelve la home. |
 
 ## 7. Structured data
@@ -72,12 +72,12 @@ No incluye reviews, rating, precios, número de calle, horarios, coordenadas ni 
 
 ## 8. Robots y sitemap
 
-`frontend/dist/robots.txt` es texto y apunta a `https://lactancia.vercel.app/sitemap.xml`.
+`frontend/dist/robots.txt` es texto y apunta a `https://www.lactanciasuy.com/sitemap.xml`.
 
-`frontend/dist/sitemap.xml` tiene dos URLs absolutas HTTPS, sin duplicados y sin www:
+`frontend/dist/sitemap.xml` tiene dos URLs absolutas HTTPS, sin duplicados:
 
-- `https://lactancia.vercel.app/`
-- `https://lactancia.vercel.app/contacto`
+- `https://www.lactanciasuy.com/`
+- `https://www.lactanciasuy.com/contacto`
 
 Esas rutas existen en la app. En el deploy que está hoy en el aire, `/robots.txt` y `/sitemap.xml` todavía responden el HTML de la home, porque este cambio no está en `main`. Hay que desplegar la rama para que producción los sirva.
 

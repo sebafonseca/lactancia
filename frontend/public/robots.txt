@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lactancia.vercel.app/sitemap.xml
+Sitemap: https://www.lactanciasuy.com/sitemap.xml

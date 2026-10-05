@@ -3,5 +3,13 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "lactancia.vercel.app" }],
+      "destination": "https://www.lactanciasuy.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [{ "source": "/contacto", "destination": "/" }]
 }

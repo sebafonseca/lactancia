@@ -67,8 +67,15 @@ if (!sitemap.includes(`<loc>${siteUrl}/</loc>`)) {
 if (!sitemap.includes(`<loc>${siteUrl}/contacto</loc>`)) {
   throw new Error("sitemap sin /contacto");
 }
-if (sitemap.includes("www.lactancia") || robots.includes("www.lactancia")) {
-  throw new Error("sitemap o robots usan www");
+if (
+  sitemap.includes("lactancia.vercel.app") ||
+  robots.includes("lactancia.vercel.app") ||
+  html.includes("lactancia.vercel.app")
+) {
+  throw new Error("el HTML, sitemap o robots usan lactancia.vercel.app");
+}
+if (siteUrl !== "https://www.lactanciasuy.com") {
+  throw new Error("siteUrl no es https://www.lactanciasuy.com");
 }
 if (!seoSource.includes('from "../site.json"')) {
   throw new Error("seo.js no lee site.json");
