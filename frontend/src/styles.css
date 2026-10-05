@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  color: #1f2937;
-  background: #fff8f0;
+  color: #2c2622;
+  background: #f7f3ee;
 }
 
 html {
@@ -13,11 +13,66 @@ html {
 
 body {
   margin: 0;
-  font-family: "Poppins", system-ui, sans-serif;
-  background: linear-gradient(180deg, #fce9ef 0%, #fff8f0 60%, #fce9ef 100%);
-  min-height: 100vh;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  color: #2c2622;
+  background: #f7f3ee;
+  text-rendering: optimizeLegibility;
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: #e7d8ce;
+  color: #2c2622;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #3e5346;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-2xl px-5 sm:px-6;
+  }
+
+  .eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.14em] text-muted;
+  }
+
+  .display {
+    @apply font-serif text-[2.15rem] font-medium leading-[1.12] text-ink sm:text-5xl;
+  }
+
+  .heading {
+    @apply font-serif text-3xl font-medium leading-tight text-ink sm:text-[2.4rem];
+  }
+
+  .body-copy {
+    @apply text-lg leading-relaxed text-muted;
+  }
+
+  .btn {
+    @apply inline-flex w-full items-center justify-center rounded-full bg-sage px-6 py-3.5 text-base font-semibold text-white transition-colors duration-150 hover:bg-sageHover sm:w-auto;
+  }
+
+  .text-link {
+    @apply font-semibold text-sage underline decoration-sage/35 underline-offset-[5px] transition-colors duration-150 hover:decoration-sage;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-paper px-4 py-3.5 text-base font-normal text-ink outline-none transition placeholder:text-muted/70 focus:border-sage;
+  }
 }

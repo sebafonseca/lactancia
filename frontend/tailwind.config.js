@@ -4,23 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        rosePastel: "#F9DDE3",
-        violetSoft: "#CABDFF",
-        cream: "#FFF8F0",
-        babyBlue: "#DDEBFF",
-        mint: "#DAF3EA",
-        violetDeep: "#5A4FCF"
+        cream: "#F7F3EE",
+        paper: "#FFFCF8",
+        blush: "#F3EBE4",
+        ink: "#2C2622",
+        muted: "#5C534C",
+        line: "#E4D8CE",
+        sage: "#3E5346",
+        sageHover: "#314237",
+        danger: "#8E3B32"
       },
       fontFamily: {
-        sans: ["Poppins", "ui-sans-serif", "system-ui"]
-      },
-      boxShadow: {
-        soft: "0 12px 30px rgba(90, 79, 207, 0.15)"
-      },
-      borderRadius: {
-        xl: "1.25rem",
-        "2xl": "1.75rem",
-        "3xl": "2.25rem"
+        sans: ["Source Sans 3", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Fraunces", "ui-serif", "Georgia", "serif"]
       }
     }
   },

@@ -1,30 +1,49 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 bg-violetSoft/70 px-6 py-12">
-      <div className="mx-auto grid w-full max-w-6xl gap-8 md:grid-cols-3">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-2xl bg-violetDeep" />
-          <div>
-            <p className="text-lg font-semibold text-violetDeep">Lactancia</p>
-            <p className="text-sm text-violetDeep/80">
-              Apoyo profesional en lactancia
-            </p>
-          </div>
+    <footer className="border-t border-line">
+      <div className="wrap grid gap-10 py-14 sm:grid-cols-3 sm:gap-8">
+        <div>
+          <p className="font-serif text-xl font-medium text-ink">Ana Cecilia Acosta</p>
+          <p className="mt-2 text-base leading-relaxed text-muted">
+            Asesoría de lactancia en Uruguay
+          </p>
         </div>
-        <div className="text-sm text-violetDeep/80">
-          <p className="mb-2 font-semibold text-violetDeep">Enlaces</p>
-          <div className="space-y-1">
-            <p>Servicios</p>
-            <p>Como funciona</p>
-            <p>Preguntas frecuentes</p>
-          </div>
-        </div>
-        <div className="text-sm text-violetDeep/80">
-          <p className="mb-2 font-semibold text-violetDeep">Contacto</p>
-          <p>WhatsApp directo</p>
-          <p>Instagram @lactancia_uy</p>
+        <nav className="flex flex-col gap-3 text-base" aria-label="Pie de página">
+          <Link to="/#servicios" className="text-ink hover:text-sage">
+            Modalidades
+          </Link>
+          <Link to="/#como" className="text-ink hover:text-sage">
+            Acompañamiento
+          </Link>
+          <Link to="/#faq" className="text-ink hover:text-sage">
+            Preguntas frecuentes
+          </Link>
+          <Link to="/contacto" className="text-ink hover:text-sage">
+            Contacto
+          </Link>
+        </nav>
+        <div className="flex flex-col gap-3 text-base text-muted">
+          <p>Presencial en Melo, Cerro Largo</p>
+          <p>Online desde cualquier lugar</p>
+          <a
+            className="text-link w-fit"
+            href="https://wa.me/59899049093"
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp
+          </a>
+          <a
+            className="w-fit text-base text-muted underline decoration-line underline-offset-4 hover:text-ink"
+            href="https://www.instagram.com/lactancia_uy/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
+          </a>
         </div>
       </div>
     </footer>
