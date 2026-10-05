@@ -12,6 +12,23 @@ const PAGES = {
     title: "Contacto | Asesoría de lactancia en Uruguay",
     description:
       "Escribile a Ana Cecilia Acosta para una consulta de lactancia. Presencial en Melo, Cerro Largo, y online."
+  },
+  "/asesoria-lactancia-melo": {
+    title: "Asesoría de lactancia en Melo | Ana Cecilia Acosta",
+    description:
+      "Consulta de lactancia a domicilio en Melo, Cerro Largo, con Ana Cecilia Acosta. Dura 90 minutos. Reservá el horario o escribime por WhatsApp.",
+    serviceName: "Consulta presencial",
+    areaServed: [
+      { "@type": "City", name: "Melo" },
+      { "@type": "AdministrativeArea", name: "Cerro Largo" }
+    ]
+  },
+  "/asesoria-lactancia-online-uruguay": {
+    title: "Asesoría de lactancia online en Uruguay | Ana Cecilia Acosta",
+    description:
+      "Consulta de lactancia por videollamada, de 60 minutos, para familias en Uruguay. Reservá la sesión online con Ana Cecilia Acosta.",
+    serviceName: "Consulta online",
+    areaServed: [{ "@type": "Country", name: "Uruguay" }]
   }
 };
 
@@ -39,4 +56,42 @@ export function applyRouteSeo(pathname) {
   if (canonical) {
     canonical.setAttribute("href", url);
   }
+
+  syncPageJsonLd(page, url);
+}
+
+function syncPageJsonLd(page, url) {
+  let script = document.getElementById("route-jsonld");
+  if (!page.serviceName) {
+    script?.remove();
+    return;
+  }
+  if (!script) {
+    script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "route-jsonld";
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    inLanguage: "es",
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "Lactancia",
+      url: `${SITE_URL}/`
+    },
+    about: { "@id": `${SITE_URL}/#asesoria` },
+    mainEntity: {
+      "@type": "Service",
+      name: page.serviceName,
+      areaServed: page.areaServed,
+      provider: { "@id": `${SITE_URL}/#asesoria` }
+    }
+  });
 }
