@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import AppRoutes from "./router/Routes.jsx";
 
 export default function App() {
@@ -16,5 +17,10 @@ export default function App() {
     }
   }, [location]);
 
-  return <AppRoutes />;
+  return (
+    <>
+      <AppRoutes />
+      <Analytics route={location.pathname} path={location.pathname} />
+    </>
+  );
 }
