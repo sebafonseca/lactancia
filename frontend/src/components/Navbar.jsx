@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-      <div className="flex items-center gap-3">
+      <Link to="/" className="flex items-center gap-3">
         <div className="h-10 w-10 rounded-2xl bg-violetSoft shadow-soft" />
         <div>
           <p className="text-sm text-violetDeep/80">Asesoria de lactancia</p>
           <p className="text-lg font-semibold text-violetDeep">Lactancia</p>
         </div>
-      </div>
+      </Link>
       <nav className="hidden items-center gap-6 text-sm font-medium text-violetDeep/90 md:flex">
         <Link to="/">Inicio</Link>
         <Link to="/#servicios">Servicios</Link>

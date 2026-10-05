@@ -111,7 +111,9 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 
 ### SPA
 
-`frontend/vercel.json` define un rewrite para que el router del cliente reciba todas las rutas.
+`frontend/vercel.json` reescribe solo `/contacto` hacia el `index.html`. `/` lo sirve el archivo estático. El resto responde 404 de Vercel, para no indexar URLs inventadas. `trailingSlash: false` manda `/contacto/` a `/contacto`.
+
+`robots.txt` y `sitemap.xml` están en `frontend/public/` y se copian a la raíz del deploy. La URL canónica es `https://lactancia.vercel.app` (`frontend/site.json`). Si más adelante hay un dominio propio, hay que cambiar esa URL en `site.json`, `index.html`, `robots.txt` y `sitemap.xml`, y redirigir `lactancia.vercel.app` al dominio.
 
 ---
 
@@ -124,7 +126,26 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 
 ---
 
-## 4. Referencias en el repo
+## 4. Google Search Console
+
+Hoy el sitio público es `https://lactancia.vercel.app`. HTTP ya redirige a HTTPS (308). `www.lactancia.vercel.app` no resuelve, así que no hay copia en www. No hay dominio propio configurado en el repo.
+
+Después del deploy de esta rama:
+
+1. Entrá a [Google Search Console](https://search.google.com/search-console) con la cuenta que administra el sitio.
+2. Agregá una propiedad de prefijo de URL: `https://lactancia.vercel.app`. No uses `http://` ni `www`.
+3. Verificá la propiedad. La vía más simple es la etiqueta HTML que te da Google: pegá el `meta name="google-site-verification"` en `frontend/index.html`, dentro de `<head>`, y volvé a desplegar. No inventes el código: tiene que ser el que muestra Search Console.
+4. Cuando la propiedad figure como verificada, abrí **Sitemaps** y enviá `sitemap.xml` (la URL completa queda `https://lactancia.vercel.app/sitemap.xml`).
+5. En **Inspección de URLs** probá `https://lactancia.vercel.app/` y `https://lactancia.vercel.app/contacto`. Si el estado es “La URL no está en Google”, pedí indexación.
+6. Unos días después revisá **Rendimiento** (consultas) y **Páginas** / indexación. Ahí se ve si Google tomó la home y `/contacto`, y con qué búsquedas aparecen.
+7. Confirmá en el navegador, ya en producción:
+   - `https://lactancia.vercel.app/robots.txt` responde texto, no el HTML de la home, y nombra el sitemap.
+   - `https://lactancia.vercel.app/sitemap.xml` lista solo `https://lactancia.vercel.app/` y `https://lactancia.vercel.app/contacto`.
+8. Si más adelante conectás un dominio propio, elegí una sola versión (con o sin www), redirigí la otra y `lactancia.vercel.app` hacia esa, y actualizá la URL canónica del repo antes de volver a enviar el sitemap.
+
+No hay favicon en el proyecto ni una foto propia para redes. La imagen de Open Graph y Twitter es la misma foto de stock que ya usa el hero. Si después hay una foto real de Ana Cecilia, conviene reemplazar `og:image` y `twitter:image` en `frontend/index.html`.
+
+## 5. Referencias en el repo
 
 - `frontend/vercel.json` — build SPA.
 - `backend/Dockerfile` — imagen de producción (Gunicorn).
