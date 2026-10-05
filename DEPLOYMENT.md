@@ -9,7 +9,7 @@ Arquitectura recomendada para producción: sitio estático/React en **Vercel**, 
 | **Frontend** | [Vercel](https://vercel.com) | Root **`frontend`**, build `npm run build`, salida `dist` (ver `frontend/vercel.json`). |
 | **API** | [Railway](https://railway.app) | Root **`backend`**, imagen **Docker** (`backend/Dockerfile` + `railway.json`). |
 | **Base de datos** | Railway | Plugin **PostgreSQL**; `DATABASE_URL` la inyecta Railway. |
-| **Reservas** | [Cal.com](https://cal.com) | Enlaces públicos en `VITE_CAL_COM_*` en Vercel (opcional; si faltan, el sitio ofrece WhatsApp). |
+| **Reservas** | [Cal.com](https://cal.com) | Por defecto `lactanciasuy/consulta-presencial` y `consulta-online`. `VITE_CAL_COM_*` en Vercel las reemplaza. |
 | **Contacto por mail** | Resend | Variables en Railway: `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO`. |
 
 ## Orden de trabajo (resumido)
@@ -104,14 +104,16 @@ En Railway podés generar un dominio público o acoplar un dominio propio; esa U
 | Variable | Descripción |
 |----------|-------------|
 | `VITE_API_URL` | URL pública del backend Railway, **https**, **sin** `/` final. Ej: `https://tu-backend.up.railway.app` |
-| `VITE_CAL_COM_PRESENCIAL_URL` | Opcional; link público Cal.com presencial. |
-| `VITE_CAL_COM_ONLINE_URL` | Opcional; link público Cal.com online. |
+| `VITE_CAL_COM_PRESENCIAL_URL` | Opcional. Si falta, se usa `https://cal.com/lactanciasuy/consulta-presencial`. |
+| `VITE_CAL_COM_ONLINE_URL` | Opcional. Si falta, se usa `https://cal.com/lactanciasuy/consulta-online`. |
 
 Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*` en el cliente).
 
 ### SPA
 
-`frontend/vercel.json` define un rewrite para que el router del cliente reciba todas las rutas.
+`frontend/vercel.json` reescribe solo `/contacto` hacia el `index.html`. `/` lo sirve el archivo estático. El resto responde 404 de Vercel, para no indexar URLs inventadas. `trailingSlash: false` manda `/contacto/` a `/contacto`.
+
+`robots.txt` y `sitemap.xml` están en `frontend/public/` y se copian a la raíz del deploy. La URL canónica es `https://www.lactanciasuy.com` (`frontend/site.json`). `frontend/vercel.json` redirige de forma permanente el host `lactancia.vercel.app` hacia ese dominio. Los deploys de preview usan otro host y no entran en esa regla.
 
 ---
 
@@ -120,11 +122,35 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 - [ ] `GET https://tu-backend/health` → `{"status":"ok"}`
 - [ ] Desde el sitio en Vercel: enviar **Contacto** y verificar correo con Resend.
 - [ ] En el navegador, red **sin** errores de CORS al hacer `POST /contact`.
-- [ ] Botones de reserva abren Cal.com (si configuraste las `VITE_CAL_COM_*`).
+- [ ] “Reservar consulta” abre `https://cal.com/lactanciasuy/consulta-presencial`.
 
 ---
 
-## 4. Referencias en el repo
+## 4. Google Search Console
+
+El dominio público es `https://www.lactanciasuy.com`. Comprobado en vivo el 5 de octubre de 2026:
+
+- `http://www.lactanciasuy.com` responde 308 hacia `https://www.lactanciasuy.com/`.
+- `http://lactanciasuy.com` responde 308 hacia `https://lactanciasuy.com/`, y esa URL responde 307 hacia `https://www.lactanciasuy.com/`.
+- `https://www.lactanciasuy.com` responde 200. Esa es la versión canónica.
+- `https://lactancia.vercel.app` todavía responde 200 en el deploy actual. Tras desplegar esta rama, ese host redirige de forma permanente a `https://www.lactanciasuy.com`.
+
+Después del deploy de esta rama:
+
+1. Entrá a [Google Search Console](https://search.google.com/search-console) con la cuenta que administra el sitio.
+2. Agregá una propiedad de prefijo de URL: `https://www.lactanciasuy.com`.
+3. Verificá la propiedad. La vía más simple es la etiqueta HTML que te da Google: pegá el `meta name="google-site-verification"` en `frontend/index.html`, dentro de `<head>`, y volvé a desplegar. No inventes el código: tiene que ser el que muestra Search Console.
+4. Cuando la propiedad figure como verificada, abrí **Sitemaps** y enviá `sitemap.xml` (la URL completa queda `https://www.lactanciasuy.com/sitemap.xml`).
+5. En **Inspección de URLs** probá `https://www.lactanciasuy.com/` y `https://www.lactanciasuy.com/contacto`. Si el estado es “La URL no está en Google”, pedí indexación.
+6. Unos días después revisá **Rendimiento** (consultas) y **Páginas** / indexación. Ahí se ve si Google tomó la home y `/contacto`, y con qué búsquedas aparecen.
+7. Confirmá en el navegador, ya en producción:
+   - `https://www.lactanciasuy.com/robots.txt` responde texto, no el HTML de la home, y nombra el sitemap.
+   - `https://www.lactanciasuy.com/sitemap.xml` lista solo `https://www.lactanciasuy.com/` y `https://www.lactanciasuy.com/contacto`.
+   - `https://lactancia.vercel.app/` y `https://lactanciasuy.com/` terminan en `https://www.lactanciasuy.com/`.
+
+No hay favicon en el proyecto ni una foto propia para redes. La imagen de Open Graph y Twitter es la misma foto de stock que ya usa el hero. Si después hay una foto real de Ana Cecilia, conviene reemplazar `og:image` y `twitter:image` en `frontend/index.html`.
+
+## 5. Referencias en el repo
 
 - `frontend/vercel.json` — build SPA.
 - `backend/Dockerfile` — imagen de producción (Gunicorn).

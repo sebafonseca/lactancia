@@ -38,42 +38,36 @@ const testimonials = [
   {
     name: "Lucia M.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_1.jpg",
     text:
       "Llegue muy angustiada con mi bebe recien nacido. Cecilia me dio calma desde la primera llamada y en pocos dias la lactancia dejo de doler. Senti que alguien realmente me escuchaba."
   },
   {
     name: "Carolina R.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_2.jpg",
     text:
       "Pense que iba a tener que abandonar la lactancia por completo. Cecilia encontro el problema en minutos y me acompano hasta que todo se acomodo. Pase de llorar a disfrutar nuevamente a mi bebe."
   },
   {
     name: "Mariana T.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_3.jpg",
     text:
       "Lo que mas valoro es el seguimiento. Cecilia esta siempre ahi, incluso para mis dudas mas chicas. Me dio seguridad en un momento donde no sabia que era normal y que no."
   },
   {
     name: "Sofia L.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_4.jpg",
     text:
       "Volver a trabajar me daba panico porque temia perder la lactancia. Cecilia me ayudo a organizarme, entender mis tiempos y armar un plan con extraccion. Fue un alivio enorme."
   },
   {
     name: "Julia P.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_5.jpg",
     text:
       "Estaba agotada y sentia que no podia con todo. Cecilia me acompano sin juzgarme y me enseño a hacer pequenos ajustes que cambiaron todo. Hoy estoy mucho mas tranquila."
   },
   {
     name: "Veronica G.",
     role: "Clienta",
-    avatar: "/testimonials/testimonial_6.jpg",
     text:
       "Soy mama primeriza y cada cosa me generaba dudas. Cecilia me dio herramientas practicas y mucha humanidad. Senti que recupere mi confianza como mama."
   }
@@ -360,7 +354,7 @@ export default function LandingPage() {
   return (
     <div className="text-violetDeep">
       <Navbar />
-
+      <main>
       <section className="relative mx-auto grid w-full max-w-6xl gap-10 px-6 pb-16 pt-8 md:grid-cols-[1.1fr_0.9fr]">
         <BlobBackground position="-left-10 top-10" />
         <BlobBackground position="right-0 top-24" />
@@ -429,7 +423,7 @@ export default function LandingPage() {
             <img
               className="h-full w-full object-cover"
               src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80"
-              alt="Madre con bebe"
+              alt="Madre con bebé"
             />
           </div>
         </motion.div>
@@ -561,6 +555,7 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </Section>
+      </main>
 
       <Footer />
     </div>

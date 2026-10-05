@@ -132,6 +132,7 @@ export default function ContactPage() {
   return (
     <div className="text-violetDeep">
       <Navbar />
+      <main>
       <motion.section
         className="mx-auto w-full max-w-6xl px-6 pb-8 pt-10"
         variants={fadeUp}
@@ -305,6 +306,7 @@ export default function ContactPage() {
           </AnimatePresence>
         </div>
       </motion.section>
+      </main>
       <Footer />
     </div>
   );

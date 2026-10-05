@@ -70,14 +70,14 @@ Variables opcionales:
 - `VITE_CAL_COM_PRESENCIAL_URL` — event type presencial en Cal.com
 - `VITE_CAL_COM_ONLINE_URL` — event type online
 
-Sin las URLs de Cal.com, “Reservar” abre **WhatsApp** con un mensaje acorde (no el formulario). Creá `frontend/.env` y **reiniciá** el servidor de Vite tras cambiar variables.
+Sin un `.env`, “Reservar consulta” abre Cal.com (`lactanciasuy/consulta-presencial`) y la sesión online abre `lactanciasuy/consulta-online`. Una variable `VITE_CAL_COM_*` reemplaza ese enlace. Creá `frontend/.env` y **reiniciá** el servidor de Vite tras cambiar variables.
 
 Ejemplo:
 
 ```
 export VITE_API_URL=http://localhost:5000
-export VITE_CAL_COM_PRESENCIAL_URL=https://cal.com/tu-usuario/consulta-presencial
-export VITE_CAL_COM_ONLINE_URL=https://cal.com/tu-usuario/consulta-online
+export VITE_CAL_COM_PRESENCIAL_URL=https://cal.com/lactanciasuy/consulta-presencial
+export VITE_CAL_COM_ONLINE_URL=https://cal.com/lactanciasuy/consulta-online
 ```
 
 ## Instalar dependencias
