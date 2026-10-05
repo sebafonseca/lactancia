@@ -9,7 +9,7 @@ Arquitectura recomendada para producción: sitio estático/React en **Vercel**, 
 | **Frontend** | [Vercel](https://vercel.com) | Root **`frontend`**, build `npm run build`, salida `dist` (ver `frontend/vercel.json`). |
 | **API** | [Railway](https://railway.app) | Root **`backend`**, imagen **Docker** (`backend/Dockerfile` + `railway.json`). |
 | **Base de datos** | Railway | Plugin **PostgreSQL**; `DATABASE_URL` la inyecta Railway. |
-| **Reservas** | [Cal.com](https://cal.com) | Enlaces públicos en `VITE_CAL_COM_*` en Vercel (opcional; si faltan, el sitio ofrece WhatsApp). |
+| **Reservas** | [Cal.com](https://cal.com) | Por defecto `lactanciasuy/consulta-presencial` y `consulta-online`. `VITE_CAL_COM_*` en Vercel las reemplaza. |
 | **Contacto por mail** | Resend | Variables en Railway: `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO`. |
 
 ## Orden de trabajo (resumido)
@@ -104,8 +104,8 @@ En Railway podés generar un dominio público o acoplar un dominio propio; esa U
 | Variable | Descripción |
 |----------|-------------|
 | `VITE_API_URL` | URL pública del backend Railway, **https**, **sin** `/` final. Ej: `https://tu-backend.up.railway.app` |
-| `VITE_CAL_COM_PRESENCIAL_URL` | Opcional; link público Cal.com presencial. |
-| `VITE_CAL_COM_ONLINE_URL` | Opcional; link público Cal.com online. |
+| `VITE_CAL_COM_PRESENCIAL_URL` | Opcional. Si falta, se usa `https://cal.com/lactanciasuy/consulta-presencial`. |
+| `VITE_CAL_COM_ONLINE_URL` | Opcional. Si falta, se usa `https://cal.com/lactanciasuy/consulta-online`. |
 
 Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*` en el cliente).
 
@@ -122,7 +122,7 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 - [ ] `GET https://tu-backend/health` → `{"status":"ok"}`
 - [ ] Desde el sitio en Vercel: enviar **Contacto** y verificar correo con Resend.
 - [ ] En el navegador, red **sin** errores de CORS al hacer `POST /contact`.
-- [ ] Botones de reserva abren Cal.com (si configuraste las `VITE_CAL_COM_*`).
+- [ ] “Reservar consulta” abre `https://cal.com/lactanciasuy/consulta-presencial`.
 
 ---
 

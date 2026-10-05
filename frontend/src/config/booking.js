@@ -10,6 +10,11 @@ const KEYS = {
   cuidados: "VITE_CAL_COM_CUIDADOS_URL"
 };
 
+const DEFAULTS = {
+  presencial: "https://cal.com/lactanciasuy/consulta-presencial",
+  online: "https://cal.com/lactanciasuy/consulta-online"
+};
+
 const WHATSAPP_BOOKING = "59899049093";
 
 const WA_FALLBACK = {
@@ -22,12 +27,13 @@ function whatsappHref(message) {
   return `https://wa.me/${WHATSAPP_BOOKING}?text=${encodeURIComponent(message)}`;
 }
 
-/** Solo Cal.com (vacío si no configuraste la variable). */
+/** Cal.com: la variable de entorno pisa el enlace público por defecto. */
 export function getBookingHref(kind) {
   const envKey = KEYS[kind];
   if (!envKey) return "";
   const raw = import.meta.env[envKey];
-  return typeof raw === "string" && raw.trim() ? raw.trim() : "";
+  if (typeof raw === "string" && raw.trim()) return raw.trim();
+  return DEFAULTS[kind] || "";
 }
 
 /**
