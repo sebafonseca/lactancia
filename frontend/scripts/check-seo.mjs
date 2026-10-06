@@ -17,7 +17,7 @@ const robots = read(dist ? "robots.txt" : "public/robots.txt");
 const sitemap = read(dist ? "sitemap.xml" : "public/sitemap.xml");
 const seoSource = fs.readFileSync(new URL("../src/seo.js", import.meta.url), "utf8");
 const landing = fs.readFileSync(new URL("../src/pages/LandingPage.jsx", import.meta.url), "utf8");
-const srcFiles = ["src/App.jsx", "src/seo.js", "src/components/Footer.jsx", "src/components/Navbar.jsx", "src/pages/LandingPage.jsx", "src/pages/ContactPage.jsx"];
+const srcFiles = ["src/App.jsx", "src/seo.js", "src/components/Footer.jsx", "src/components/Navbar.jsx", "src/pages/LandingPage.jsx", "src/pages/ContactPage.jsx", "src/pages/ServiceLandingPage.jsx"];
 for (const file of srcFiles) {
   const text = fs.readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
   if (/noindex|nofollow/i.test(text)) {
@@ -66,6 +66,37 @@ if (!sitemap.includes(`<loc>${siteUrl}/</loc>`)) {
 }
 if (!sitemap.includes(`<loc>${siteUrl}/contacto</loc>`)) {
   throw new Error("sitemap sin /contacto");
+}
+for (const path of ["/asesoria-lactancia-melo", "/asesoria-lactancia-online-uruguay"]) {
+  if (!sitemap.includes(`<loc>${siteUrl}${path}</loc>`)) {
+    throw new Error(`sitemap sin ${path}`);
+  }
+  if (!seoSource.includes(`"${path}"`)) {
+    throw new Error(`seo.js sin ${path}`);
+  }
+  if (!vercel.includes(`"source": "${path}"`)) {
+    throw new Error(`vercel.json sin rewrite ${path}`);
+  }
+}
+const serviceLanding = fs.readFileSync(new URL("../src/pages/ServiceLandingPage.jsx", import.meta.url), "utf8");
+const h1s = serviceLanding.match(/<h1[\s>]/g) || [];
+if (h1s.length !== 1) {
+  throw new Error("la landing de servicio no tiene un único H1");
+}
+if (!serviceLanding.includes("Asesoría de lactancia a domicilio en Melo")) {
+  throw new Error("falta el H1 de Melo");
+}
+if (!serviceLanding.includes("Asesoría de lactancia online para Uruguay")) {
+  throw new Error("falta el H1 online");
+}
+if (html.includes("streetAddress")) {
+  throw new Error("el JSON-LD incluye una calle");
+}
+if (!html.includes('"name": "Ana Cecilia Acosta"')) {
+  throw new Error("el JSON-LD no usa el nombre público");
+}
+if (!html.includes('"alternateName": "Lactancia"')) {
+  throw new Error("falta el nombre alternativo del sitio");
 }
 if (
   sitemap.includes("lactancia.vercel.app") ||

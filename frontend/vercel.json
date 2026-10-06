@@ -11,5 +11,9 @@
       "permanent": true
     }
   ],
-  "rewrites": [{ "source": "/contacto", "destination": "/" }]
+  "rewrites": [
+    { "source": "/contacto", "destination": "/" },
+    { "source": "/asesoria-lactancia-melo", "destination": "/" },
+    { "source": "/asesoria-lactancia-online-uruguay", "destination": "/" }
+  ]
 }

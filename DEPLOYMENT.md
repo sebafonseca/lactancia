@@ -111,7 +111,7 @@ Tras cambiar variables, hacé **Redeploy** (el build de Vite inyecta los `VITE_*
 
 ### SPA
 
-`frontend/vercel.json` reescribe solo `/contacto` hacia el `index.html`. `/` lo sirve el archivo estático. El resto responde 404 de Vercel, para no indexar URLs inventadas. `trailingSlash: false` manda `/contacto/` a `/contacto`.
+`frontend/vercel.json` reescribe `/contacto`, `/asesoria-lactancia-melo` y `/asesoria-lactancia-online-uruguay` hacia el `index.html`. `/` lo sirve el archivo estático. El resto responde 404 de Vercel, para no indexar URLs inventadas. `trailingSlash: false` manda la versión con barra final a la ruta sin barra.
 
 `robots.txt` y `sitemap.xml` están en `frontend/public/` y se copian a la raíz del deploy. La URL canónica es `https://www.lactanciasuy.com` (`frontend/site.json`). `frontend/vercel.json` redirige de forma permanente el host `lactancia.vercel.app` hacia ese dominio. Los deploys de preview usan otro host y no entran en esa regla.
 
