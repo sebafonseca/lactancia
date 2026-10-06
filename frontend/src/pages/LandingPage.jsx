@@ -409,7 +409,17 @@ export default function LandingPage() {
             </motion.a>
           </div>
           <div className="text-sm text-violetDeep/70">
-            Presencial solo Melo, Cerro Largo · Online desde cualquier lugar · Plan y seguimiento
+            <Link className="underline decoration-violetDeep/30 underline-offset-4" to="/asesoria-lactancia-melo">
+              Presencial solo Melo, Cerro Largo
+            </Link>
+            {" · "}
+            <Link
+              className="underline decoration-violetDeep/30 underline-offset-4"
+              to="/asesoria-lactancia-online-uruguay"
+            >
+              Online desde cualquier lugar
+            </Link>
+            {" · Plan y seguimiento"}
           </div>
         </div>
         <motion.div

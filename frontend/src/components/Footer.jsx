@@ -28,6 +28,12 @@ export default function Footer() {
             <Link className="block" to="/#faq">
               Preguntas frecuentes
             </Link>
+            <Link className="block" to="/asesoria-lactancia-melo">
+              Asesoría en Melo
+            </Link>
+            <Link className="block" to="/asesoria-lactancia-online-uruguay">
+              Asesoría online
+            </Link>
           </div>
         </div>
         <div className="text-sm text-violetDeep/80">

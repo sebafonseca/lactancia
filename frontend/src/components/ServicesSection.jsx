@@ -67,7 +67,9 @@ const SERVICE_ITEMS = [
       label: "Reservar esta consulta",
       hrefType: "booking",
       bookingKind: "presencial"
-    }
+    },
+    pageHref: "/asesoria-lactancia-melo",
+    pageLabel: "Ver la consulta en Melo"
   },
   {
     id: "online",
@@ -81,7 +83,9 @@ const SERVICE_ITEMS = [
       label: "Coordinar sesión",
       hrefType: "booking",
       bookingKind: "online"
-    }
+    },
+    pageHref: "/asesoria-lactancia-online-uruguay",
+    pageLabel: "Ver la consulta online"
   },
   {
     id: "talleres",
@@ -118,6 +122,22 @@ function bookingHrefOrContact(cta) {
     return getBookingHrefOrWhatsapp(cta.bookingKind) || "/contacto";
   }
   return "/contacto";
+}
+
+function ServiceActions({ service }) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <ServiceCta cta={service.cta} />
+      {service.pageHref ? (
+        <Link
+          to={service.pageHref}
+          className="text-sm font-semibold text-violetDeep underline decoration-violetDeep/30 underline-offset-4"
+        >
+          {service.pageLabel}
+        </Link>
+      ) : null}
+    </div>
+  );
 }
 
 function ServiceCta({ cta }) {
@@ -257,7 +277,7 @@ export default function ServicesSection() {
               </div>
 
               <div className="mt-2 border-t border-violetDeep/[0.08] pt-6 sm:pt-7">
-                <ServiceCta cta={featured.cta} />
+                <ServiceActions service={featured} />
               </div>
             </div>
           </motion.article>
@@ -285,7 +305,7 @@ export default function ServicesSection() {
               <h3 className="mt-2.5 text-xl font-semibold leading-snug text-violetDeep">{service.title}</h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-violetDeep/60">{service.description}</p>
               <div className="mt-6 border-t border-violetDeep/[0.06] pt-5">
-                <ServiceCta cta={service.cta} />
+                <ServiceActions service={service} />
               </div>
             </div>
           </motion.article>
